@@ -10,6 +10,7 @@ import { CarService } from 'src/app/services/car.service';
 export class CarComponent implements OnInit {
  
   dataLoaded = false;
+  
   cars:CarDetails[]=[]; //cars details almamızın nedeni carID ve BrandId göstermek istemememiz..
   constructor(private carService:CarService){}
   ngOnInit(): void {

@@ -10,7 +10,8 @@ export class CarService {
   constructor(private httpClient:HttpClient) { }
   apiUrl="https://localhost:44396/api/cars/getcardetails"
  
-  getCar():Observable<CarResponseModel>{
+  getCar():Observable<CarResponseModel>
+  {
    return this.httpClient.get<CarResponseModel>(this.apiUrl)
   }
 }
