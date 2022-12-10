@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CarDetails } from 'src/app/models/carDetails';
 import { CarService } from 'src/app/services/car.service';
 
@@ -12,9 +13,17 @@ export class CarComponent implements OnInit {
   dataLoaded = false;
   
   cars:CarDetails[]=[]; //cars details almamızın nedeni carID ve BrandId göstermek istemememiz..
-  constructor(private carService:CarService){}
+  constructor(private carService:CarService, private activatedRoute:ActivatedRoute){}
   ngOnInit(): void {
-    this.getCar();
+    this.activatedRoute.params.subscribe(params=>{
+      if(params["brandId"])
+      {
+        this.getCarByBrandId(params["brandId"]);
+      }
+      else{
+        this.getCar();
+      }
+    })
   }
   getCar()
   {
@@ -24,4 +33,12 @@ export class CarComponent implements OnInit {
     
     })
   }
+  getCarByBrandId(brandId:number)
+  {
+    this.carService.getCarByBrandId(brandId).subscribe(response=>{
+      this.cars = response.data;
+      this.dataLoaded = true;
+    })
+  }
+
 }
